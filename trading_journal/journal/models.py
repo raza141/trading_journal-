@@ -48,6 +48,7 @@ class TradeEntry(models.Model):
     ticker = models.CharField(max_length=10)
     identify_date = models.DateField(null=True, blank=True)
     strategy = models.CharField(max_length=255)
+    macro_event = models.CharField(max_length=255, null=True, blank=True)
     entry_date = models.DateField()
     entry_price = models.DecimalField(max_digits=10, decimal_places=2)
     position_size = models.IntegerField()

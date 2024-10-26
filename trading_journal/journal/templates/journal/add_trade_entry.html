@@ -1,17 +1,173 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Add Trade Entry</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Custom styling */
+        body {
+            font-family: 'Roboto', sans-serif;
+        }
+        h1 {
+            font-weight: 700;
+        }
+        .btn-primary {
+            background-color: #28a745;
+            border-color: #28a745;
+        }
+        .btn-primary:hover {
+            background-color: #218838;
+            border-color: #1e7e34;
+        }
+        .form-container {
+            background-color: #e6f5e6;
+            padding: 20px;
+            border-radius: 8px;
+        }
+    </style>
+    <title>Add Trade Entry</title>
 </head>
 <body>
-    <div class="container">
-        <h1>Add a New Trade Entry</h1>
-        <form method="POST">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit" class="btn btn-primary">Save Entry</button>
-        </form>
+    <div class="container mt-4">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h1>Add a New Trade Entry</h1>
+            <a href="{% url 'journal_list' %}" class="btn btn-primary">Go to Journal List</a>
+        </div>
+        <div class="form-container">
+            <form method="POST">
+                {% csrf_token %}
+
+                <!-- Three-column layout for fields -->
+                <div class="form-row">
+                    <div class="form-group col-md-4">
+                        {{ form.market.label_tag }}
+                        {{ form.market }}
+                    </div>
+                    <div class="form-group col-md-4">
+                        {{ form.country.label_tag }}
+                        {{ form.country }}
+                    </div>
+                    <div class="form-group col-md-4">
+                        {{ form.ticker.label_tag }}
+                        {{ form.ticker }}
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group col-md-4">
+                        {{ form.identify_date.label_tag }}
+                        {{ form.identify_date }}
+                    </div>
+                    <div class="form-group col-md-4">
+                        {{ form.strategy.label_tag }}
+                        {{ form.strategy }}
+                    </div>
+                    <div class="form-group col-md-4">
+                        {{ form.macro_event.label_tag }}
+                        {{ form.macro_event }}
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group col-md-4">
+                        {{ form.entry_date.label_tag }}
+                        {{ form.entry_date }}
+                    </div>
+                    <div class="form-group col-md-4">
+                        {{ form.entry_price.label_tag }}
+                        {{ form.entry_price }}
+                    </div>
+                    <div class="form-group col-md-4">
+                        {{ form.position_size.label_tag }}
+                        {{ form.position_size }}
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group col-md-4">
+                        {{ form.exit_date.label_tag }}
+                        {{ form.exit_date }}
+                    </div>
+                    <div class="form-group col-md-4">
+                        {{ form.exit_price.label_tag }}
+                        {{ form.exit_price }}
+                    </div>
+                    <div class="form-group col-md-4">
+                        {{ form.capital.label_tag }}
+                        {{ form.capital }}
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group col-md-4">
+                        {{ form.trade_status.label_tag }}
+                        {{ form.trade_status }}
+                    </div>
+                    <div class="form-group col-md-4">
+                        {{ form.risk_reward_ratio.label_tag }}
+                        {{ form.risk_reward_ratio }}
+                    </div>
+                    <div class="form-group col-md-4">
+                        {{ form.stop_loss.label_tag }}
+                        {{ form.stop_loss }}
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group col-md-4">
+                        {{ form.take_profit.label_tag }}
+                        {{ form.take_profit }}
+                    </div>
+                    <div class="form-group col-md-4">
+                        {{ form.profit_loss.label_tag }}
+                        {{ form.profit_loss }}
+                    </div>
+                    <div class="form-group col-md-4">
+                        {{ form.trade_reason.label_tag }}
+                        {{ form.trade_reason }}
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group col-md-4">
+                        {{ form.technicals.label_tag }}
+                        {{ form.technicals }}
+                    </div>
+                    <div class="form-group col-md-4">
+                        {{ form.fundamentals.label_tag }}
+                        {{ form.fundamentals }}
+                    </div>
+                    <div class="form-group col-md-4">
+                        {{ form.status.label_tag }}
+                        {{ form.status }}
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group col-md-4">
+                        {{ form.pre_trade_emotions.label_tag }}
+                        {{ form.pre_trade_emotions }}
+                    </div>
+                    <div class="form-group col-md-4">
+                        {{ form.in_trade_emotions.label_tag }}
+                        {{ form.in_trade_emotions }}
+                    </div>
+                    <div class="form-group col-md-4">
+                        {{ form.post_trade_emotions.label_tag }}
+                        {{ form.post_trade_emotions }}
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group col-md-12">
+                        {{ form.lessons_learned.label_tag }}
+                        {{ form.lessons_learned }}
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Save Entry</button>
+            </form>
+        </div>
     </div>
 </body>
 </html>

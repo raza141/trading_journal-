@@ -5,7 +5,7 @@ class TradeEntryForm(forms.ModelForm):
     class Meta:
         model = TradeEntry
         fields = [
-            'market', 'country', 'ticker', 'identify_date', 'strategy', 'entry_date',
+            'market', 'country', 'ticker', 'identify_date', 'strategy', 'macro_event', 'entry_date',
             'entry_price', 'position_size', 'exit_date', 'exit_price','status',
             'capital', 'technicals', 'fundamentals', 'stop_loss', 'take_profit', 
             'risk_reward_ratio', 'pre_trade_emotions', 'in_trade_emotions',
@@ -20,6 +20,7 @@ class TradeEntryForm(forms.ModelForm):
             'country': forms.Select(attrs={'class': 'form-control'}),
             'status': forms.Select(attrs={'class': 'form-control'}),
             'strategy': forms.TextInput(attrs={'placeholder': 'BUY-HOLD','class': 'form-control'}),
+            'macro_event': forms.TextInput(attrs={'placeholder': 'Earning report','class': 'form-control'}),
             'ticker': forms.TextInput(attrs={'placeholder': 'BOP','class': 'form-control'}),
             'entry_price': forms.NumberInput(attrs={'placeholder': '100','class': 'form-control'}),
             'exit_price': forms.NumberInput(attrs={'placeholder': '100','class': 'form-control'}),
