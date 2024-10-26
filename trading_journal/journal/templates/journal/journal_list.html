@@ -92,6 +92,7 @@
                         <th>Take Profit</th>
                         <th>Risk/Reward Ratio</th>
                         <th>Profit/Loss</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -117,6 +118,7 @@
                         <td>{{ entry.take_profit }}</td>
                         <td>{{ entry.risk_reward_ratio }}</td>
                         <td>{% if entry.calculate_profit_loss %}{{ entry.calculate_profit_loss }}{% else %}None{% endif %}</td>
+                        <td> <a href="{% url 'edit_trade_entry' entry.id %}" class="btn btn-primary btn-sm">Edit</a> </td>
                     </tr>
                     {% endfor %}
                 </tbody>
