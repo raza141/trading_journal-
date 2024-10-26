@@ -7,10 +7,11 @@ class TradeEntryForm(forms.ModelForm):
         fields = [
             'market', 'country', 'ticker', 'identify_date', 'strategy', 'macro_event', 'entry_date',
             'entry_price', 'position_size', 'exit_date', 'exit_price','status',
-            'capital', 'technicals', 'fundamentals', 'stop_loss', 'take_profit', 
+            'capital', 'technicals', 'fundamentals', 
             'risk_reward_ratio', 'pre_trade_emotions', 'in_trade_emotions',
             'post_trade_emotions', 'lessons_learned'
         ]
+         # 'stop_loss', 'take_profit'
         # Adding widgets for styling and ease of use
         widgets = {
             'identify_date': forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
@@ -26,8 +27,8 @@ class TradeEntryForm(forms.ModelForm):
             'exit_price': forms.NumberInput(attrs={'placeholder': '100','class': 'form-control'}),
             'position_size': forms.NumberInput(attrs={'placeholder': 'Number of Shares','class': 'form-control'}),
             'capital': forms.NumberInput(attrs={'placeholder': '10,000', 'class': 'form-control'}),
-            'stop_loss': forms.NumberInput(attrs={'class': 'form-control'}),
-            'take_profit': forms.NumberInput(attrs={'class': 'form-control'}),
+            # 'stop_loss': forms.NumberInput(attrs={'class': 'form-control'}),
+            # 'take_profit': forms.NumberInput(attrs={'class': 'form-control'}),
             'risk_reward_ratio': forms.NumberInput(attrs={'placeholder': '1:2','class': 'form-control'}),
             'technicals': forms.Textarea(attrs={'class': 'form-control', 'rows': 3}),
             'fundamentals': forms.Textarea(attrs={'class': 'form-control', 'rows': 3}),

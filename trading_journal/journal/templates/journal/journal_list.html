@@ -70,13 +70,56 @@
             border-radius: 10px;  /* Optional: Add some rounding to the container */
             box-shadow: 0 4px 8px rgba(0,0,0,0.1);  /* Optional: Add a subtle shadow */
         }
+        .status-holding {
+            background-color: #d4edda; /* Light green for "Holding" */
+            color: #155724; /* Dark green text */
+            font-weight: bold;
+        }
+        .status-stop-loss-hit {
+            background-color: #f8d7da; /* Light red for "Stop_loss_hit" */
+            color: #721c24; /* Dark red text */
+            font-weight: bold;
+        }
+        .status-other {
+            background-color: #d1ecf1; /* Light blue for other statuses */
+            color: #0c5460; /* Dark blue text */
+            font-weight: bold;
+        }
+        /* Limit width for specific columns and wrap text */
+        table td:nth-child(14), /* Assuming "Technical" is the 10th column */
+        table td:nth-child(15) { /* Assuming "Fundamentals" is the 11th column */
+        max-width: 30%; /* Set a maximum width */
+        word-wrap: break-word; /* Break words at the edge */
+        white-space: normal; /* Allow text to wrap to the next line */
+        overflow-wrap: break-word; /* For cross-browser compatibility */
+    }
+
     </style>
 </head>
 <body>
     <div class="user-name">Muhammad Ahmed Raza</div>
     <div class="container">
         <h1 class="mb-3">Trading Journal Entries</h1>
-        <a href="{% url 'add_trade_entry' %}" class="btn btn-success mb-3">Add New Trade Entry</a>
+        {% if messages %}
+        <div>
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        <!-- Add New Trade Entry button and Delete Entry by ID form -->
+        <!-- Horizontal alignment for Add New and Delete Entry by ID form -->
+        <div class="d-flex align-items-center mb-3">
+            <a href="{% url 'add_trade_entry' %}" class="btn btn-success mr-3">Add New Trade Entry</a>
+            
+            <!-- Delete Entry by ID Form -->
+            <form action="{% url 'delete_trade_entry_by_id' %}" method="POST" class="form-inline">
+                {% csrf_token %}
+                <input type="number" name="entry_id" placeholder="Enter ID to delete" class="form-control mr-2" required>
+                <button type="submit" class="btn btn-danger">Delete Entry</button>
+            </form>
+        </div>
 
         <!-- Scrollable div for the table -->
         <div class="table-container">
@@ -90,6 +133,7 @@
                         <th>Status</th>
                         <th>Identify Date</th>
                         <th>Strategy</th>
+                        <th>Macro Event</th>
                         <th>Entry Date</th>
                         <th>Entry Price</th>
                         <th>Position Size</th>
@@ -103,6 +147,9 @@
                         <th>Take Profit</th>
                         <th>Risk/Reward Ratio</th>
                         <th>Profit/Loss</th>
+                        <th>Pre Trade Emotions</th>
+                        <th>In Trade Emotion</th>
+                        <th>Post Trade Emotion</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -113,9 +160,12 @@
                         <td>{{ entry.ticker }}</td>
                         <td>{{ entry.market }}</td>
                         <td>{{ entry.country }}</td>
-                        <td>{{ entry.status }}</td>
+                        <td class="{% if entry.status == 'Holding' %}status-holding{% elif entry.status == 'Stop_loss_hit' %}status-stop-loss-hit{% else %}status-other{% endif %}">
+                            {{ entry.status }}
+                        </td>
                         <td>{{ entry.identify_date }}</td>
                         <td>{{ entry.strategy }}</td>
+                        <td>{{ entry.macro_event }}</td>
                         <td>{{ entry.entry_date }}</td>
                         <td>{{ entry.entry_price }}</td>
                         <td>{{ entry.position_size }}</td>
@@ -129,6 +179,9 @@
                         <td>{{ entry.take_profit }}</td>
                         <td>{{ entry.risk_reward_ratio }}</td>
                         <td>{% if entry.calculate_profit_loss %}{{ entry.calculate_profit_loss }}{% else %}-{% endif %}</td>
+                        <td>{{ entry.pre_trade_emotions }}</td>
+                        <td>{{ entry.in_trade_emotion }}</td>
+                        <td>{{ entry.post_trade_emotion }}</td>
                         <td> <a href="{% url 'edit_trade_entry' entry.id %}" class="btn btn-primary btn-sm">Edit</a> </td>
                     </tr>
                     {% endfor %}

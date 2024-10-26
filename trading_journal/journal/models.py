@@ -59,8 +59,8 @@ class TradeEntry(models.Model):
     capital = models.DecimalField(max_digits=10, decimal_places=2)
     technicals = models.TextField(null=True, blank=True)
     fundamentals = models.TextField(null=True, blank=True)
-    stop_loss = models.DecimalField(max_digits=10, decimal_places=2)
-    take_profit = models.DecimalField(max_digits=10, decimal_places=2)
+    stop_loss = models.DecimalField(editable=False, null=True, max_digits=10, decimal_places=2)
+    take_profit = models.DecimalField(editable=False, null=True, max_digits=10, decimal_places=2)
     risk_reward_ratio = models.DecimalField(max_digits=5, decimal_places=2)
     profit_loss = models.DecimalField(max_digits=15, decimal_places=2, editable=False, null=True)
     pre_trade_emotions = models.CharField(max_length=20, choices=TRADE_EMOTION_CHOICES, default='Confident', null=True, blank=True)
@@ -87,6 +87,7 @@ class TradeEntry(models.Model):
             # Formula: (Exit Price - Entry Price) * Position Size
             return round((self.exit_price - self.entry_price) * self.position_size, 2)
         return None  # Return None if exit_price is not available
+
 
     def save(self, *args, **kwargs):
         """Override save to auto-calculate days based on entry_date and exit_date."""
