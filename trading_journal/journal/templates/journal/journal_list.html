@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Trading Journal Entries</title>
+
+    <!-- Link to Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- Bootstrap CSS for styling -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        /* Set the background color of the entire page */
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #e6f7ff;  /* Light blue background for the whole page */
+        }
+
+        /* Remove any table width limits */
+        table {
+            width: 100%;  /* Ensure the table takes full width */
+            table-layout: auto;  /* Ensure columns auto-adjust to content */
+        }
+
+        /* Custom styling for the table */
+        table th, table td {
+            text-align: center;  /* Center align text in all table cells */
+            vertical-align: middle;  /* Vertically align the text */
+            padding: 8px;  /* Add padding for better spacing */
+            white-space: nowrap;  /* Prevent text from wrapping */
+        }
+
+        /* Add minimum width to make sure all columns are visible */
+        table th, table td {
+            min-width: 100px;  /* Set a minimum width */
+        }
+
+        /* Style the table header */
+        table thead {
+            background-color: #f8f9fa;  /* Light grey background for the header */
+            font-weight: 500;  /* Slightly bold font for header */
+        }
+
+        /* Add background color for even rows */
+        table tbody tr:nth-child(even) {
+            background-color: #f2f2f2;  /* Lighter background color for even rows */
+        }
+
+        /* Scrollable container for overflow */
+        .table-container {
+            overflow-x: auto;  /* Enable horizontal scrolling for the table */
+        }
+
+        /* Full width container */
+        .container {
+            width: 100%;  /* Make the container span the entire page width */
+            max-width: 100%;  /* Override max-width to ensure full width */
+            background-color: #ffffff;  /* Keep the container white if desired */
+            padding: 20px;
+            border-radius: 10px;  /* Optional: Add some rounding to the container */
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);  /* Optional: Add a subtle shadow */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Trading Journal Entries</h1>
+        <a href="{% url 'add_trade_entry' %}" class="btn btn-success mb-3">Add New Trade Entry</a>
+
+        <!-- Scrollable div for the table -->
+        <div class="table-container">
+            <table class="table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Ticker</th>
+                        <th>Market</th>
+                        <th>Country</th>
+                        <th>Status</th>
+                        <th>Identify Date</th>
+                        <th>Strategy</th>
+                        <th>Entry Date</th>
+                        <th>Entry Price</th>
+                        <th>Position Size</th>
+                        <th>Exit Date</th>
+                        <th>Exit Price</th>
+                        <th>Days Held</th>
+                        <th>Capital</th>
+                        <th>Technicals</th>
+                        <th>Fundamentals</th>
+                        <th>Stop Loss</th>
+                        <th>Take Profit</th>
+                        <th>Risk/Reward Ratio</th>
+                        <th>Profit/Loss</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for entry in entries %}
+                    <tr>
+                        <td>{{ entry.id }}</td>
+                        <td>{{ entry.ticker }}</td>
+                        <td>{{ entry.market }}</td>
+                        <td>{{ entry.country }}</td>
+                        <td>{{ entry.status }}</td>
+                        <td>{{ entry.identify_date }}</td>
+                        <td>{{ entry.strategy }}</td>
+                        <td>{{ entry.entry_date }}</td>
+                        <td>{{ entry.entry_price }}</td>
+                        <td>{{ entry.position_size }}</td>
+                        <td>{% if entry.exit_date %}{{ entry.exit_date }}{% else %}None{% endif %}</td>
+                        <td>{% if entry.exit_price %}{{ entry.exit_price }}{% else %}None{% endif %}</td>
+                        <td>{{ entry.days }}</td>
+                        <td>{{ entry.capital }}</td>
+                        <td>{{ entry.technicals }}</td>
+                        <td>{{ entry.fundamentals }}</td>
+                        <td>{{ entry.stop_loss }}</td>
+                        <td>{{ entry.take_profit }}</td>
+                        <td>{{ entry.risk_reward_ratio }}</td>
+                        <td>{% if entry.calculate_profit_loss %}{{ entry.calculate_profit_loss }}{% else %}None{% endif %}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>
